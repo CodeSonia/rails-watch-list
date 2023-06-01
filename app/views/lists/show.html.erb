@@ -1,5 +1,22 @@
 <div class="container mt-5">
-  <h1><%= link_to @list.name %></h1>
+  <h1>List Details</h1>
 
-  <%= link_to 'View Lists', lists_path, class: "btn btn-secondary mt-3" %>
+  <p>Name: <%= @list.name %></p>
+
+  <h2>Bookmarks</h2>
+
+  <% @list.bookmarks.each do |bookmark| %>
+    <div>
+      <p>Movie: <%= bookmark.movie.title %></p>
+      <%= image_tag bookmark.movie.poster_url %>
+      <p>Comment: <%= bookmark.comment %></p>
+      <%= link_to 'Delete', bookmark_path(bookmark), data: { turbo_method: :delete,  turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    </div>
+  <% end %>
+
+  <p><%= link_to 'Add Bookmark', new_list_bookmark_path(@list) %></p>
+
+  <div>
+    <%= link_to 'Back to Lists', lists_path %>
+  </div>
 </div>
