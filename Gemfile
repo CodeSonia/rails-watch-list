@@ -73,3 +73,5 @@ gem "simple_form"
 
 gem 'jquery-rails'
 gem 'popper_js'
+
+gem 'dotenv-rails', groups: [:development, :test]
