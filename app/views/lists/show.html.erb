@@ -3,6 +3,10 @@
 <div class="container mt-5">
   <h1>List Details</h1>
 
+  <% if @list.cover_image.attached? %>
+    <%= cl_image_tag @list.cover_image.key, height: 400, width: 800, crop: "fill" %>
+  <% end %>
+
   <p>Name: <%= @list.name %></p>
 
   <h2>Bookmarks</h2>
