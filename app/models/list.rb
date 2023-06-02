@@ -6,6 +6,21 @@ class List < ApplicationRecord
   has_many :movies, through: :bookmarks
 
   validates :name, presence: true, uniqueness: true
+  validate :validate_cover_image
 
   has_one_attached :cover_image
+
+  private
+
+  def validate_cover_image
+    return unless cover_image.attached?
+
+    if !cover_image.blob.content_type.starts_with?('image/')
+      cover_image.purge
+      errors.add(:cover_image, 'must be an image')
+    elsif cover_image.blob.byte_size > 5.megabytes
+      cover_image.purge
+      errors.add(:cover_image, 'size cannont exceed 5MB')
+    end
+  end
 end
